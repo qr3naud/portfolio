@@ -1,6 +1,6 @@
 # Quentin Renaud - Portfolio
 
-A modern, interactive portfolio website showcasing work in growth, code, and design. Built with React, TypeScript, and Framer Motion.
+A modern, interactive portfolio website showcasing work in growth, code, and design. Built with Next.js (App Router), React, TypeScript, and Tailwind CSS.
 
 ## 🚀 Features
 
@@ -12,54 +12,58 @@ A modern, interactive portfolio website showcasing work in growth, code, and des
 
 ## 🛠️ Tech Stack
 
-- **Framework**: React 18 with TypeScript
-- **Styling**: Tailwind CSS
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS (with custom CSS variables)
 - **Animations**: Framer Motion
-- **Build Tool**: Next.js
 - **UI Components**: shadcn/ui
 
 ## 📦 Installation
 
 1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/quentin-renaud-portfolio.git
-cd quentin-renaud-portfolio
-```
-
+   ```bash
+   git clone https://github.com/qr3naud/portfolio.git
+   cd portfolio
+   ```
 2. Install dependencies:
-```bash
-npm install
-```
-
+   ```bash
+   npm install
+   ```
 3. Run the development server:
-```bash
-npm run dev
-```
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) (or the port shown in your terminal) in your browser.
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 🏗️ Build for Production
-
-```bash
-npm run build
-npm start
-```
-
-## 📁 Project Structure
+## 🏗️ Project Structure
 
 ```
-Portfolio/
-├── App.tsx                 # Main application component
-├── components/             # Reusable UI components
+portfolio/
+├── app/
+│   ├── layout.tsx         # Root layout, imports global styles
+│   └── page.tsx           # Main page component
+├── components/            # Reusable UI components
 │   ├── ChladniBackground.tsx
 │   ├── Section.tsx
 │   ├── RotatingText.tsx
 │   └── ui/                # shadcn/ui components
 ├── styles/
-│   └── globals.css        # Global styles
+│   └── globals.css        # Global styles (Tailwind + custom CSS)
+├── tailwind.config.js     # Tailwind CSS configuration
+├── next.config.js         # Next.js configuration
+├── tsconfig.json          # TypeScript configuration
+├── postcss.config.js      # PostCSS configuration
 ├── Attributions.md        # Third-party attributions
-└── README.md             # This file
+├── LICENSE                # MIT License
+└── README.md              # This file
 ```
+
+## 📝 Notes & Troubleshooting
+
+- **Uses the new Next.js App Router (`app/` directory).**
+- **Tailwind CSS** is configured to use custom CSS variables for colors. If you add new color variables, also add them to `tailwind.config.js` under `extend.colors`.
+- If you see errors about missing Tailwind classes (e.g., `border-border`), make sure the color is defined in the config.
+- If you see errors about `@layer base` or missing Tailwind directives, ensure `@tailwind base;`, `@tailwind components;`, and `@tailwind utilities;` are at the top of `globals.css`.
 
 ## 🎨 Design Philosophy
 
