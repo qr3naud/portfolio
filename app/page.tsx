@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { ChladniBackground } from './components/ChladniBackground';
-import { Section } from './components/Section';
-import { RotatingText } from './components/RotatingText';
+import { ChladniBackground } from '../components/ChladniBackground';
+import { Section } from '../components/Section';
+import { RotatingText } from '../components/RotatingText';
 import { motion } from 'framer-motion';
 
-export default function App() {
+export default function Page() {
   const [currentSection, setCurrentSection] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const touchStartX = useRef<number | null>(null);
@@ -129,7 +129,6 @@ export default function App() {
     >
       {/* Chladni Background */}
       <ChladniBackground patternIndex={currentSection} />
-      
       {/* Scroll Container */}
       <div
         id="scroll-container"
@@ -171,7 +170,6 @@ export default function App() {
                     <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-gray-900 px-2 sm:px-0">
                       {section.title}
                     </h2>
-                    
                     <div className="space-y-4 sm:space-y-6">
                       <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700 min-h-[1.5em] sm:min-h-[2em] flex items-center justify-center px-4 sm:px-0">
                         <RotatingText 
@@ -179,12 +177,10 @@ export default function App() {
                           interval={2500}
                         />
                       </div>
-                      
                       <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto px-4 sm:px-0">
                         {section.content}
                       </p>
                     </div>
-                    
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -198,89 +194,34 @@ export default function App() {
                           Let's connect
                           <motion.span
                             animate={{ x: [0, 4, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity }}
-                            className="text-lg sm:text-xl"
                           >
                             →
                           </motion.span>
                         </span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-900 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </button>
                     </motion.div>
                   </div>
                 </>
               ) : (
-                // Regular Sections
-                <div className="space-y-4 sm:space-y-6">
-                  <div className="space-y-2 sm:space-y-3">
-                    <div className="text-xs sm:text-sm md:text-base text-gray-500 uppercase tracking-wider">
-                      {section.title}
-                    </div>
-                    <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-light tracking-tight text-gray-900 leading-tight px-2 sm:px-0">
+                // Other Sections
+                <>
+                  <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-gray-900 px-2 sm:px-0">
+                    {section.title}
+                  </h2>
+                  {section.subtitle && (
+                    <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700 font-medium px-4 sm:px-0">
                       {section.subtitle}
-                    </h2>
-                  </div>
-                  <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
+                    </div>
+                  )}
+                  <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto px-4 sm:px-0">
                     {section.content}
                   </p>
-                </div>
+                </>
               )}
             </motion.div>
           </Section>
         ))}
       </div>
-
-      {/* Enhanced Navigation Dots with better touch targets */}
-      <div className="fixed bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3 z-10">
-        {sections.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              const scrollContainer = document.getElementById('scroll-container');
-              if (scrollContainer) {
-                scrollContainer.scrollTo({
-                  left: index * window.innerWidth,
-                  behavior: 'smooth'
-                });
-              }
-            }}
-            className={`w-4 h-4 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-              index === currentSection
-                ? 'bg-gray-900 scale-125'
-                : 'bg-gray-400 hover:bg-gray-600'
-            }`}
-            style={{ minWidth: '16px', minHeight: '16px' }} // Ensure minimum touch target
-          />
-        ))}
-      </div>
-
-      {/* Mobile-optimized Scroll Hint */}
-      <motion.div
-        initial={{ opacity: 1 }}
-        animate={{ opacity: currentSection === 0 ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
-        className="fixed bottom-6 sm:bottom-8 right-4 sm:right-8 text-gray-500 text-xs sm:text-sm flex items-center space-x-2 pointer-events-none"
-      >
-        <span className="hidden sm:inline">Scroll horizontally</span>
-        <span className="sm:hidden">Swipe</span>
-        <motion.div
-          animate={{ x: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="text-gray-400"
-        >
-          →
-        </motion.div>
-      </motion.div>
-
-      {/* Frequency Indicator with mobile optimization */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.6 }}
-        transition={{ duration: 1, delay: 1 }}
-        className="fixed top-4 sm:top-8 left-4 sm:left-8 text-xs text-gray-400 font-mono pointer-events-none"
-      >
-        FREQ: {String(currentSection + 1).padStart(2, '0')}/05
-      </motion.div>
     </div>
   );
-}
+} 
